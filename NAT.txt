@@ -1,0 +1,50 @@
+1. Open Cisco Packet Tracer.
+2. Place the following devices: - 1 Router (Cisco 2911), 1 Switch, 2 PCs, and 1 Server
+
+3. Connect devices using Copper Straight-Through Cables:
+o PCs → Switch → Router (G0/0)
+o Router (G0/1) → Server0
+
+Step 2: Assign IP Addresses
+1. PC0:
+o IP: 192.168.1.10
+o Subnet Mask: 255.255.255.0
+o Default Gateway: 192.168.1.1
+
+2. PC1:
+o IP: 192.168.1.11
+o Subnet Mask: 255.255.255.0
+o Default Gateway: 192.168.1.1
+
+3. Server0:
+o IP: 10.0.0.2
+o Subnet Mask: 255.0.0.0
+o Default Gateway: 10.0.0.1
+
+4. Router0 Interfaces:
+o Gig0/0: IP 192.168.1.1, Mask 255.255.255.0, Port Status: On
+o Gig0/1: IP 10.0.0.1, Mask 255.0.0.0, Port Status: On
+
+Same Router0 Interface configuration can also be done in CLI mode.
+o Enter privileged EXEC mode and do the following:
+
+Router> enable
+Router# configure terminal
+Router(config)# interface gig0/0
+Router(config-if)# ip address 192.168.1.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config)# interface gig0/1
+Router(config-if)# ip address 10.0.0.1 255.0.0.0
+Router(config-if)# no shutdown
+Router(config)# exit
+
+Step 3: Define Inside and Outside Interfaces
+
+Router(config)# interface gig0/0
+Router(config-if)# ip nat inside
+Router(config)# interface gig0/1
+Router(config-if)# ip nat outside
+Router(config)# exit
+
+Step 4: Configure Static NAT
+Router(config)# ip nat inside source static 192.168.1.10 10.0.0.10

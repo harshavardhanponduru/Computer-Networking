@@ -1,0 +1,37 @@
+Step-by-Step Procedure:
+1. Create the Topology:
+o Place one router (e.g., Cisco 2911), two switches, and four PCs (two per
+LAN).
+o Connect each PC to the switch using straight-through cables.
+o Connect each switch to one of the router’s FastEthernet interfaces.
+2. Assign IP Addresses:
+o LAN1: 192.168.1.0/24 → PCs: 192.168.1.10, 192.168.1.11
+o LAN2: 192.168.2.0/24 → PCs: 192.168.2.10, 192.168.2.11
+o Router Interfaces:
+ G0/0: 192.168.1.1
+ G0/1: 192.168.2.1
+
+3. Configure PCs:
+o Set IP, subnet mask, and default gateway (router interface IP for that LAN).
+
+4. Configure Router Interfaces:
+CLI Command:
+Router> enable
+Router# configure terminal
+Router(config)# interface gig0/0
+Router(config-if)# ip address 192.168.1.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config)# interface gig0/1
+Router(config-if)# ip address 192.168.2.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config)# end
+Router# copy running-configstartup-config
+
+Config Mode:
+Go to: Router0 → Config tab → only configure the Interfaces (Make Port status On)
+
+5. Verify Connectivity:
+o Use the ping command between PCs in different LANs (e.g., from
+192.168.1.10 to 192.168.2.10).
+o Observe successful replies confirming router-enabled inter-network
+communication.

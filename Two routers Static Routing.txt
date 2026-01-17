@@ -1,0 +1,82 @@
+1. Create the Topology:
+o Place two routers (Router0, Router1), each connected to a LAN.
+o Connect the routers.
+o Connect PCs to switches, and switches to routers.
+2. Assign IP Addresses:
+o LAN1 (Router0): 192.168.1.0/24
+ PC0: 192.168.1.10 (Gateway: 192.168.1.1)
+ PC1: 192.168.1.11 (Gateway: 192.168.1.1)
+o LAN2 (Router1): 172.168.0.0/16
+ PC1: 172.168.2.10 (Gateway: 172.168.2.1)
+ PC2: 172.168.2.11 (Gateway: 172.168.2.1)
+o Serial Link:
+ Router0 (Gig0/1): 10.0.0.1/8
+ Router1 (Gig0/1): 10.0.0.2/8
+
+3. Configure Router0:
+CLI Commands:
+Router0> enable
+Router0# configure terminal
+Router0(config)# interface gig0/0
+Router0(config-if)# ip address 192.168.1.1 255.255.255.0
+Router0(config-if)# no shutdown
+Router0(config)# interface gig0/1
+Router0(config-if)# ip address 10.0.0.1 255.0.0.0
+Router0(config-if)# no shutdown
+Router0(config)# ip route 172.168.0.0 255.255.0.0 10.0.0.2
+Router0(config)# end
+
+Config Mode:
+Go to Router0→Config tab and configure Interfaces as given below:
+
+Gig0/0/0
+IPv4 Address - 192.168.1.1
+Subnet Mask - 255.255.255.0
+
+Gig0/0/1
+IPv4 Address - 10.0.0.1
+Subnet Mask - 255.0.0.0
+
+Go to Router0 → Config → Routing → Static. Configure the following.
+
+Network - 172.168.0.0
+Mask - 255.255.0.0
+Next Hop - 10.0.0.2
+
+Then click Add
+
+4. Configure Router1:
+CLI Commands:
+Router1> enable
+Router1# configure terminal
+Router1(config)# interface gig0/0
+Router1(config-if)# ip address 172.168.2.1 255.255.0.0
+Router1(config-if)# no shutdown
+Router1(config)# interface gig0/1
+Router1(config-if)# ip address 10.0.0.2 255.0.0.0
+Router1(config-if)# no shutdown
+Router1(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1
+Router1(config)# end
+
+Config Mode:
+Go to Router1→Config tab and configure Interfaces as given below:
+Gig0/0/0
+IPv4 Address - 172.168.2.1 
+Subnet Mask - 255.255.0.0
+
+Gig0/0/1
+IPv4 Address - 10.0.0.2
+Subnet Mask - 255.0.0.0
+
+Go to Router1 → Config → Routing → Static. Configure the following.
+
+Network - 192.168.1.0
+Mask - 255.255.0.0
+Next Hop - 10.0.0.1
+
+Then click Add
+
+5. Verify Static Routing:
+o Ping from PC0 (192.168.1.10) to PC2 (172.168.2.10).
+o Check routing table with show ip route.
+o Observe that packets traverse both routers using static routes.

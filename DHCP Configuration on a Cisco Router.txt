@@ -1,0 +1,24 @@
+Step 1: Configure Router Interface
+Router> enable
+Router# configure terminal
+Router(config)# interface gigabitEthernet0/0
+Router(config-if)# ip address 192.168.10.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+Step 2: Exclude Static IP Addresses
+Router(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.10
+Step 3: Create DHCP Pool
+Router(config)# ip dhcp pool LAN_POOL
+Router(dhcp-config)# network 192.168.10.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.10.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(dhcp-config)# exit
+Step 4: Configure PCs
+On each PC: Desktop → IP Configuration → Select DHCP
+Step 5: Verification
+On Router
+show ip dhcp binding
+show ip dhcp pool
+On PC
+Ipconfig
+
