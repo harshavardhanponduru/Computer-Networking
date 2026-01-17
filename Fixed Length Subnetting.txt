@@ -1,0 +1,91 @@
+PART 1 — FIXED-LENGTH SUBNETTING
+Given Network: 172.16.0.0/24 Required Subnets:
+Subnet A: 40 hosts
+Subnet B: 20 hosts
+Subnet C: 10 hosts
+Subnet D: 5 hosts
+
+Fixed-length subnetting means all subnets must be of equal size.
+Step 1 — Determine Subnet Size
+We need the largest host requirement → 40 hosts.
+Formula:
+Hosts = 2^h – 2  ≥ 40
+2^6 – 2 = 62  → OK
+So we need 6 host bits, leaving:
+Prefix = 32 – 6 = /26
+Subnet mask = 255.255.255.192
+Each subnet size = 2⁶ = 64 addresses per subnet
+Step 2 — Create Subnets of /26
+
+Step 3 — Packet Tracer Topology
+Use:
+1 Router
+4 Switches
+Multiple PCs in each subnet
+To add new interfaces (Extra Ports)
+ 	Drag the Router to the Workspace
+From Devices → Routers
+Choose Cisco 2911
+Drag onto the workspace.
+Power OFF the Router
+You cannot insert modules while powered on.
+Click the router
+Go to the Physical tab
+Find the Power button (left side → switch)
+Click it → It turns red (OFF)
+
+Choose a Module to Add
+Common modules for extra ports:
+
+For subnetting labs, the HWIC-4ESW is the easiest and most used.
+
+Insert the Module
+In the router’s Physical tab, you’ll see empty HWIC slots.
+Drag the module (e.g., HWIC-4ESW) from the left panel
+Drop it into an empty slot.
+You will see the module appear with new ports like:
+		Fa0/0
+	Fa0/1
+		Fa0/2
+		Fa0/3
+
+Power ON the Router
+Click the same power switch
+It turns green (ON)
+Go to CLI and Verify Ports
+Open CLI → type:
+		show ip interface brief
+You should now see the new interfaces.
+Connect:
+Step 4 — Router Configuration
+Example for Router:
+enable
+configure terminal
+
+interface g0/0
+ ip address 172.16.0.1 255.255.255.192
+ no shutdown
+
+interface g0/1
+ ip address 172.16.0.65 255.255.255.192
+ no shutdown
+
+interface g0/2
+ ip address 172.16.0.129 255.255.255.192
+ no shutdown
+
+interface g0/3
+ ip address 172.16.0.193 255.255.255.192
+ no shutdown
+Since a single router is used, routing is automatic (no static routes needed).
+Step 5 — PC Configuration Example
+PC in Subnet A:
+IP: 172.16.0.10
+Mask: 255.255.255.192
+Gateway: 172.16.0.1
+Repeat for all PCs.
+Step 6 — Verification
+Ping across subnets:
+PC-A → PC-B
+PC-A → PC-C
+PC-A → PC-D
