@@ -21,4 +21,3 @@ show ip dhcp binding
 show ip dhcp pool
 On PC
 Ipconfig
-
