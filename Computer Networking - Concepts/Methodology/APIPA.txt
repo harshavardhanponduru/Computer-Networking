@@ -1,0 +1,46 @@
+Step 1: Place and Connect Devices
+1. Open Cisco Packet Tracer. Place: 1 Switch, 1 Server and 2 PCs.
+2. Connect:
+
+Step 2: Assign Static IP to Server
+(Required because server itself must have a fixed address)
+1. Click Server
+2. Go to Desktop → IP Configuration
+3. Set:
+o IP Address: 192.168.10.1
+o Subnet Mask: 255.255.255.0
+o Default Gateway: (leave blank)
+
+Step 3: Enable DHCP Service on Server
+1. Click Server
+2. Go to Services
+3. Select DHCP
+4. Turn DHCP → ON and Fill the fields as follows:
+Field Value
+Pool Name serverPool
+Default Gateway (leave blank)
+DNS Server 8.8.8.8
+
+Field Value
+Start IP Address 192.168.10.10
+Subnet Mask 255.255.255.0
+Maximum Users 20
+5. Save the configuration
+Step 4: Configure PCs as DHCP Clients
+For each PC:
+1. Click PC → Desktop
+2. Open IP Configuration
+3. Select DHCP
+DHCP server will assign IP address.
+
+Step 5: Test Connectivity
+From PC1: ping 192.168.10.3
+Successful replies confirm DHCP is working.
+
+Step 1: In the above experiment, turn off the DHCP service on the server.
+Step 2: For each PC:
+1. Click PC → Desktop
+2. Open IP Configuration
+3. Select DHCP again
+Observe APIPA Address Assignment
+

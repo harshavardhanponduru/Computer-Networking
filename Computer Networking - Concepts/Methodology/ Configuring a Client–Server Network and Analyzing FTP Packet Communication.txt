@@ -1,0 +1,67 @@
+Configuration Steps (Cisco Packet Tracer)
+Step 1: Configure Client IP
+
+Client PC0 → Desktop → IP Configuration
+IP Address: 192.168.10.2
+Subnet Mask: 255.255.255.0
+Gateway : 192.168.10.1
+
+Client PC1 → Desktop → IP Configuration
+IP Address: 192.168.10.3
+Subnet Mask: 255.255.255.0
+Gateway : 192.168.10.1
+
+Add a sample file (e.g., test.txt)
+Server → Desktop → Text Editor → Add text and save
+
+Step 2: Configure Server IP
+Server → Desktop → IP Configuration
+IP Address: 10.10.10.2
+Subnet Mask: 255.0.0.0
+Gateway : 10.10.10.1
+
+Step 3: Enable FTP Service on Server
+Server → Services → FTP
+Turn FTP: ON
+
+Create user:
+Username: S2C2
+Password: iter
+
+Step 4: Configure Router
+
+Gig0/0
+IP - 192.168.10.1
+Subnet Mask - 255.255.255.0
+
+Gig0/1
+IP - 10.10.10.1
+Subnet Mask - 255.0.0.0
+
+Step 5: FTP Communication between Clients (PC0 to PC1)
+Client (PC0) → Desktop → Command Prompt
+C:> dir # will list test.txt on PC0
+ftp 10.10.10.2
+
+Login:
+Username: S2C2
+Password: iter
+FTP Commands:
+dir # will not list test.txt on ftp server
+put test.txt
+dir # will list now test.txt on ftp server
+
+Client (PC1) → Desktop → Command Prompt
+C:> dir # will not list test.txt on PC1
+ftp 10.10.10.2
+Login:
+Username: S2C2
+Password: iter
+FTP Commands:
+get test.txt # get file from server
+quit
+C:> dir # will now list test.txt on PC1
+
+Client (PC0) → Desktop → Command Prompt
+delete test.txt
+dir # will not list test.txt on ftp server
